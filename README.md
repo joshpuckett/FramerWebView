@@ -3,9 +3,9 @@ FramerWebView
 
 A simple web viewer for Framer.JS prototypes. Replace the iframe src in **index.html** with the URL of your prototype, then open it up in your browser and you're good to go! FramerWebView currently assumes an iPhone sized prototype (640px x 1136px), but I'll be working on an Android version soon.
 
-Example: https://dl.dropboxusercontent.com/u/144234624/Framewebview/index.html
+Example: https://s3-us-west-2.amazonaws.com/tweakapp.co/Framewebview/index.html
 
-![FramerWebView Example](https://dl.dropboxusercontent.com/u/144234624/framerwebview.png)
+![FramerWebView Example](https://s3-us-west-2.amazonaws.com/tweakapp.co/Framewebview/framerwebview.png)
 
 Features
 --------
@@ -17,6 +17,6 @@ Features
 
 ```
 * {
-cursor: url("https://dl.dropboxusercontent.com/u/144234624/bobble.png"), default;
+cursor: url("https://s3-us-west-2.amazonaws.com/tweakapp.co/Framewebview/bobble.png"), default;
 }
 ```
