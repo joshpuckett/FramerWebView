@@ -4,7 +4,7 @@
     margin: 0;
     padding: 0;
     border: 0 none;
-    cursor: url("https://dl.dropboxusercontent.com/u/144234624/bobble.png"), default;
+    cursor: url("https://s3-us-west-2.amazonaws.com/tweakapp.co/Framewebview/bobble.png"), default;
 }
 
 html, body {

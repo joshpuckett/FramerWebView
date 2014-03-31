@@ -7,9 +7,9 @@ togglePhone = true
 toggleHand = true
 var backgrounds = [
 									"", 
-									"https://dl.dropboxusercontent.com/u/144234624/_bgs/bg1.png", 
-									"https://dl.dropboxusercontent.com/u/144234624/_bgs/bg2.png",
-									] 
+									"https://s3-us-west-2.amazonaws.com/tweakapp.co/Framewebview/_bgs/bg1.png", 
+									"https://s3-us-west-2.amazonaws.com/tweakapp.co/Framewebview/_bgs/bg2.png",
+									]
 currentBackground = 0
 
 
