@@ -10,10 +10,11 @@ Example: https://s3-us-west-2.amazonaws.com/tweakapp.co/Framewebview/index.html
 Features
 --------
 * Resize your browser, prototype automatically scales down
+* Use the controls in the top left to switch between iPhone and Android viewers
+* Swap prototypes using the input in the top left
 * Hit P to toggle between a black and white iPhone
 * Hit H to toggle the hand off and on
 * Hit B to cycle through various backgrounds (customize these in the backgrounds array in main.js)
-* Hit D to swap between iPhone and Android devices
 * Hit Z to zoom in to 100%
 * Mouse cursor is replaced by an easier to track bobble - add this to your prototype's CSS:
 
