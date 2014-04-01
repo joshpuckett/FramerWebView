@@ -109,33 +109,58 @@ $(window).keypress(function(e) {
 			toggleZoom = !toggleZoom
 			prototypeViewer()
 			break;
-		// Hitting the D key swaps iPhone for Android device
-		case 100:
-			if (isiPhone) {
-				isiPhone = !isiPhone
-				$('#viewer').css({
-					"background-image": "url('img/nexus.png')"
-				})
-				$('iframe').css({
-					"width": "720px",
-	    		"height": "1280px"
-				})
-				prototypeViewer()
-			} else {
-				isiPhone = !isiPhone
-				$('#viewer').css({
-					"background-image": "url('img/iphone_white.png')"
-				})
-				$('iframe').css({
-					"width": "640px",
-	    		"height": "1136px"
-				})
-				prototypeViewer()
-			}
-			break;
 	}
 });
 
 // Kick things off and update on resize
 $(document).ready(prototypeViewer)
 $(window).resize(prototypeViewer)
+
+function search(ele) {
+  if(event.keyCode == 13) {
+		$("#frame").attr("src", ele.value);   
+		$('.prototypeinput').blur();     
+  }
+}
+
+$("#iphone, #android").click(function(){
+if (isiPhone) {
+	isiPhone = !isiPhone
+	$('#iphone').addClass("iphone").removeClass("iphoneactive")
+	$('#android').addClass("androidactive").removeClass("android")
+	$('#viewer').css({
+		"background-image": "url('img/nexus.png')"
+	})
+	$('iframe').css({
+		"width": "720px",
+		"height": "1280px"
+	})
+	prototypeViewer()
+} else {
+	isiPhone = !isiPhone
+	$('#iphone').addClass("iphoneactive").removeClass("iphone")
+	$('#android').addClass("android").removeClass("androidactive")
+	$('#viewer').css({
+		"background-image": "url('img/iphone_white.png')"
+	})
+	$('iframe').css({
+		"width": "640px",
+		"height": "1136px"
+	})
+	prototypeViewer()
+}
+})
+
+
+$("#controls").mouseenter(function(){
+	$("#controls").animate({opacity:'1'}, 'fast');
+});
+$("#controls").mouseleave(function(){
+  $("#controls").animate({opacity:'0.1'}, 'slow');
+});
+
+
+
+
+
+

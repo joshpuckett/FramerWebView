@@ -14,7 +14,11 @@
     <script src="js/vendor/modernizr-2.6.2.min.js"></script>
   </head>
   <body>
-    <div id="loupe"></div>
+    <div id="controls">
+      <a href="#" id="iphone" class="iphoneactive"></a>
+      <a href="#" id="android" class="android"></a>
+      <input type="text" placeholder="Enter url..." class="prototypeinput" onkeydown="search(this)"/>
+    </div>
     <div id ="viewer">
       <iframe id="frame" src="https://s3-us-west-2.amazonaws.com/tweakapp.co/Framewebview/lightbox/index.html" ></iframe>
     </div>

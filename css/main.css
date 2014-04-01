@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
     border: 0 none;
+    outline: none;  
     cursor: url("https://s3-us-west-2.amazonaws.com/tweakapp.co/Framewebview/bobble.png"), default;
 }
 
@@ -15,6 +16,87 @@ iframe {
     background-color: white;
     width: 640px;
     height: 1136px;
+}
+
+#controls {
+  height: 50px;
+  padding: 24px;
+  position: absolute;
+  cursor: pointer;
+  z-index: 100;
+  opacity: 0.1
+}
+
+.iphone {
+  width: 25px;
+  height: 29px;
+  display: block;
+  float: left;
+  background: url("../img/btnsprite.png") 0px 0px no-repeat;
+  background-size: 50px 58px;
+  cursor: pointer;
+}
+
+.iphoneactive {
+  width: 25px;
+  height: 29px;
+  display: block;
+  float: left;
+  background: url("../img/btnsprite.png") 0px -29px no-repeat;
+  background-size: 50px 58px;
+  cursor: pointer;
+}
+
+.android {
+  width: 25px;
+  height: 29px;
+  display: block;
+  margin-left: 15px;
+  float: left;
+  background: url("../img/btnsprite.png") -25px 0px no-repeat;
+  background-size: 50px 58px;
+  cursor: pointer;
+}
+
+.androidactive {
+  width: 25px;
+  margin-left: 15px;
+  height: 29px;
+  display: block;
+  float: left;
+  background: url("../img/btnsprite.png") -25px -29px no-repeat;
+  background-size: 50px 58px;
+  cursor: pointer;
+}
+
+.prototypeinput {
+  float: left;
+  border-radius: 4px;
+  border: 1px solid #cccccf;
+  height: 29px;
+  width: 200px;
+  margin-left: 15px;
+  font-size: 14px;
+  font-family: "Helvetica Neue", sans-serif;
+  padding-left: 10px;
+  color: #cccccf;
+  cursor: pointer;
+}
+
+.prototypeinput:focus{
+    border:1px solid #0e8ae7;
+}
+
+::-webkit-input-placeholder {
+   color: #cccccf;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #cccccf;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #cccccf;  
 }
 
 #viewer {
