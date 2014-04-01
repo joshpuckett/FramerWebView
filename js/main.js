@@ -6,7 +6,8 @@
 togglePhone = true
 toggleHand = true
 toggleZoom = false
-var isRetina = window.devicePixelRatio > 1;
+isRetina = window.devicePixelRatio > 1;
+isiPhone = true
 var backgrounds = [
 									"", 
 									"https://s3-us-west-2.amazonaws.com/tweakapp.co/Framewebview/_bgs/bg1.png", 
@@ -16,30 +17,57 @@ currentBackground = 0
 
 
 function centerAndResizeViewer() {
-	viewerHeight = ($(window).height() * .8)
-	viewerWidth = viewerHeight * .48588
-	viewerScale = viewerHeight/1630
-	$('#viewer').css({
-		'height': viewerHeight,
-		'width': viewerWidth,
-		'position': 'absolute',
-		'left': ($(window).width() - viewerWidth)/2,
-    'top': ($(window).height() - viewerHeight)/2,
-	})
-	$('#frame').css({
-		'webkitTransform': 'scale(' + viewerScale + ', ' + viewerScale + ')',
-		'webkitTransformOrigin': '0% 0%',
-		'position': 'absolute',
-		'left': 75 * viewerScale,
-    'top': 247 * viewerScale,
-	})
-	$('#hand').css({
-		'height': ((1833 * 1.30) * viewerScale) * 0.7793,
-		'width': (1833 * 1.30) * viewerScale,
-		'position': 'absolute',
-		'left': ($(window).width() - ((1833 * 1.352) * viewerScale))/2,
-    'top': $(window).height() - (((1833 * 1.27) * viewerScale) * 0.7793),
-	})
+	if (isiPhone) {
+		viewerHeight = ($(window).height() * .8)
+		viewerWidth = viewerHeight * .48588
+		viewerScale = viewerHeight/1630
+		$('#viewer').css({
+			"height": viewerHeight,
+			"width": viewerWidth,
+			"position": 'absolute',
+			"left": ($(window).width() - viewerWidth)/2,
+	    "top": ($(window).height() - viewerHeight)/2,
+		})
+		$('#frame').css({
+			'webkitTransform': 'scale(' + viewerScale + ', ' + viewerScale + ')',
+			'webkitTransformOrigin': '0% 0%',
+			'position': 'absolute',
+			'left': 75 * viewerScale,
+	    'top': 247 * viewerScale,
+		})
+		$('#hand').css({
+			'height': ((1833 * 1.30) * viewerScale) * 0.7793,
+			'width': (1833 * 1.30) * viewerScale,
+			'position': 'absolute',
+			'left': ($(window).width() - ((1833 * 1.352) * viewerScale))/2,
+	    'top': $(window).height() - (((1833 * 1.27) * viewerScale) * 0.7793),
+		})
+	} else {
+		viewerHeight = ($(window).height() * .8)
+		viewerWidth = viewerHeight * .48588
+		viewerScale = viewerHeight/1630
+		$('#viewer').css({
+			"height": viewerHeight,
+			"width": viewerWidth,
+			"position": 'absolute',
+			"left": ($(window).width() - viewerWidth)/2,
+	    "top": ($(window).height() - viewerHeight)/2,
+		})
+		$('#frame').css({
+			'webkitTransform': 'scale(' + viewerScale + ', ' + viewerScale + ')',
+			'webkitTransformOrigin': '0% 0%',
+			'position': 'absolute',
+			'left': 35 * viewerScale,
+	    'top': 164 * viewerScale,
+		})
+		$('#hand').css({
+			'height': ((1833 * 1.38) * viewerScale) * 0.7793,
+			'width': (1833 * 1.38) * viewerScale,
+			'position': 'absolute',
+			'left': ($(window).width() - ((1833 * 1.432) * viewerScale))/2,
+	    'top': $(window).height() - (((1833 * 1.33) * viewerScale) * 0.7793),
+		})
+	}
 }
 
 function zoomToScale() {
@@ -122,6 +150,28 @@ $('body').keypress(function(e) {
 			centerAndResizeViewer()
 		}
 		toggleZoom = !toggleZoom
+	} else if (e.which = 100) {
+		if (isiPhone) {
+			isiPhone = !isiPhone
+			$('#viewer').css({
+				"background-image": "url('img/nexus.png')"
+			})
+			$('iframe').css({
+				"width": "720px",
+    		"height": "1280px"
+			})
+			centerAndResizeViewer()
+		} else {
+			isiPhone = !isiPhone
+			$('#viewer').css({
+				"background-image": "url('img/iphone_white.png')"
+			})
+			$('iframe').css({
+				"width": "640px",
+    		"height": "1136px"
+			})
+			centerAndResizeViewer()
+		}
 	}
 });
 
