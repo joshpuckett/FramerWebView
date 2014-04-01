@@ -5,6 +5,8 @@
 // Set up vars
 togglePhone = true
 toggleHand = true
+toggleZoom = false
+var isRetina = window.devicePixelRatio > 1;
 var backgrounds = [
 									"", 
 									"https://s3-us-west-2.amazonaws.com/tweakapp.co/Framewebview/_bgs/bg1.png", 
@@ -17,6 +19,40 @@ function centerAndResizeViewer() {
 	viewerHeight = ($(window).height() * .8)
 	viewerWidth = viewerHeight * .48588
 	viewerScale = viewerHeight/1630
+	$('#viewer').css({
+		'height': viewerHeight,
+		'width': viewerWidth,
+		'position': 'absolute',
+		'left': ($(window).width() - viewerWidth)/2,
+    'top': ($(window).height() - viewerHeight)/2,
+	})
+	$('#frame').css({
+		'webkitTransform': 'scale(' + viewerScale + ', ' + viewerScale + ')',
+		'webkitTransformOrigin': '0% 0%',
+		'position': 'absolute',
+		'left': 75 * viewerScale,
+    'top': 247 * viewerScale,
+	})
+	$('#hand').css({
+		'height': ((1833 * 1.30) * viewerScale) * 0.7793,
+		'width': (1833 * 1.30) * viewerScale,
+		'position': 'absolute',
+		'left': ($(window).width() - ((1833 * 1.352) * viewerScale))/2,
+    'top': $(window).height() - (((1833 * 1.27) * viewerScale) * 0.7793),
+	})
+}
+
+function zoomToScale() {
+	if (isRetina) {
+	   	viewerHeight = 1630/2
+			viewerWidth = 792/2
+			viewerScale = 0.5
+	}
+	else {
+		viewerHeight = 1630
+		viewerWidth = 792
+		viewerScale = 1
+	}
 	$('#viewer').css({
 		'height': viewerHeight,
 		'width': viewerWidth,
@@ -79,10 +115,24 @@ $('body').keypress(function(e) {
 			currentBackground += 1
 			setBackground(currentBackground)
 		}
+	} else if (e.which == 122) {
+		if (!toggleZoom) {
+			zoomToScale()
+		} else {
+			centerAndResizeViewer()
+		}
+		toggleZoom = !toggleZoom
 	}
 });
 
 // Kick things off
 $(document).ready(centerAndResizeViewer)
-$(window).resize(centerAndResizeViewer)
+$(window).resize( function() {
+	if (!toggleZoom) {
+		centerAndResizeViewer()
+	} else {
+		zoomToScale()
+	}
+})
+
 
