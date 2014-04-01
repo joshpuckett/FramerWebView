@@ -1,6 +1,4 @@
 // Copyright 2014, Josh Puckett
-// All this code is pretty sloppy, consider it an early alpha, 
-// with many improvements to come :)
 
 // Set up vars
 togglePhone = true
@@ -15,92 +13,51 @@ var backgrounds = [
 									]
 currentBackground = 0
 
-
-function centerAndResizeViewer() {
-	if (isiPhone) {
+function prototypeViewer() {
+	//Set up some object vars based on if zoom has been toggled
+	//and if device is retina or not
+	if (!toggleZoom) {
 		viewerHeight = ($(window).height() * .8)
 		viewerWidth = viewerHeight * .48588
 		viewerScale = viewerHeight/1630
-		$('#viewer').css({
-			"height": viewerHeight,
-			"width": viewerWidth,
-			"position": 'absolute',
-			"left": ($(window).width() - viewerWidth)/2,
-	    "top": ($(window).height() - viewerHeight)/2,
-		})
-		$('#frame').css({
-			'webkitTransform': 'scale(' + viewerScale + ', ' + viewerScale + ')',
-			'webkitTransformOrigin': '0% 0%',
-			'position': 'absolute',
-			'left': 75 * viewerScale,
-	    'top': 247 * viewerScale,
-		})
-		$('#hand').css({
-			'height': ((1833 * 1.30) * viewerScale) * 0.7793,
-			'width': (1833 * 1.30) * viewerScale,
-			'position': 'absolute',
-			'left': ($(window).width() - ((1833 * 1.352) * viewerScale))/2,
-	    'top': $(window).height() - (((1833 * 1.27) * viewerScale) * 0.7793),
-		})
 	} else {
-		viewerHeight = ($(window).height() * .8)
-		viewerWidth = viewerHeight * .48588
-		viewerScale = viewerHeight/1630
-		$('#viewer').css({
-			"height": viewerHeight,
-			"width": viewerWidth,
-			"position": 'absolute',
-			"left": ($(window).width() - viewerWidth)/2,
-	    "top": ($(window).height() - viewerHeight)/2,
-		})
-		$('#frame').css({
-			'webkitTransform': 'scale(' + viewerScale + ', ' + viewerScale + ')',
-			'webkitTransformOrigin': '0% 0%',
-			'position': 'absolute',
-			'left': 35 * viewerScale,
-	    'top': 164 * viewerScale,
-		})
-		$('#hand').css({
-			'height': ((1833 * 1.38) * viewerScale) * 0.7793,
-			'width': (1833 * 1.38) * viewerScale,
-			'position': 'absolute',
-			'left': ($(window).width() - ((1833 * 1.432) * viewerScale))/2,
-	    'top': $(window).height() - (((1833 * 1.33) * viewerScale) * 0.7793),
-		})
+	 	viewerHeight = isRetina ? 1630/2 : 1630
+		viewerWidth = isRetina ? 792/2 : 792
+		viewerScale = isRetina ? 0.5 : 1
 	}
-}
 
-function zoomToScale() {
-	if (isRetina) {
-	   	viewerHeight = 1630/2
-			viewerWidth = 792/2
-			viewerScale = 0.5
-	}
-	else {
-		viewerHeight = 1630
-		viewerWidth = 792
-		viewerScale = 1
-	}
+	//Private object vars
+	positionLeft = isiPhone ? 75 : 35
+	positionTop = isiPhone ? 247 : 164
+	deviceMultiple = isiPhone ? 1.3 : 1.375
+	deviceLeftMultiple = isiPhone ? 1.352 : 1.433
+	deviceTopMultiple = isiPhone ? 1.27 : 1.33
+
+	//Set up viewer
 	$('#viewer').css({
-		'height': viewerHeight,
-		'width': viewerWidth,
-		'position': 'absolute',
-		'left': ($(window).width() - viewerWidth)/2,
-    'top': ($(window).height() - viewerHeight)/2,
+		"height": viewerHeight,
+		"width": viewerWidth,
+		"position": 'absolute',
+		"left": ($(window).width() - viewerWidth)/2,
+    "top": ($(window).height() - viewerHeight)/2,
 	})
+
+	//Set up viewer iframe
 	$('#frame').css({
 		'webkitTransform': 'scale(' + viewerScale + ', ' + viewerScale + ')',
 		'webkitTransformOrigin': '0% 0%',
 		'position': 'absolute',
-		'left': 75 * viewerScale,
-    'top': 247 * viewerScale,
+		'left': positionLeft * viewerScale,
+		'top': positionTop * viewerScale,
 	})
+
+	//Set up hand 
 	$('#hand').css({
-		'height': ((1833 * 1.30) * viewerScale) * 0.7793,
-		'width': (1833 * 1.30) * viewerScale,
+		'height': ((1833 * deviceMultiple) * viewerScale) * 0.7793,
+		'width': (1833 * deviceMultiple) * viewerScale,
 		'position': 'absolute',
-		'left': ($(window).width() - ((1833 * 1.352) * viewerScale))/2,
-    'top': $(window).height() - (((1833 * 1.27) * viewerScale) * 0.7793),
+		'left': ($(window).width() - ((1833 * deviceLeftMultiple) * viewerScale))/2,
+    'top': $(window).height() - (((1833 * deviceTopMultiple) * viewerScale) * 0.7793),
 	})
 }
 
@@ -121,68 +78,64 @@ function setBackground(background) {
 }
 
 // Keypress listeners. 
-// Hitting the P key toggles between black and white iPhone
-// Hitting the H key toggles the hand on and off
-// Hitting the B key cycles through various backgrounds
-$('body').keypress(function(e) {
-	if (e.which == 112) {
-		$('#viewer').css({
-			"background-image": togglePhone ? "url('img/iphone_black.png')" : "url('img/iphone_white.png')"
-		})
-		togglePhone = !togglePhone
-	} else if (e.which == 104) {
-		$('#hand').css({
-			"background-image": toggleHand ? "none" : "url('img/hand.png')"
-		})
-		toggleHand = !toggleHand
-	} else if (e.which == 98) {
-		if (currentBackground == backgrounds.length-1) {
-			currentBackground = 0
-			setBackground(currentBackground)
-		} else {
-			currentBackground += 1
-			setBackground(currentBackground)
-		}
-	} else if (e.which == 122) {
-		if (!toggleZoom) {
-			zoomToScale()
-		} else {
-			centerAndResizeViewer()
-		}
-		toggleZoom = !toggleZoom
-	} else if (e.which = 100) {
-		if (isiPhone) {
-			isiPhone = !isiPhone
+$(window).keypress(function(e) {
+	switch (e.which) {
+		// Hitting the P key toggles between black and white iPhone
+		case 112:
 			$('#viewer').css({
-				"background-image": "url('img/nexus.png')"
+				"background-image": togglePhone ? "url('img/iphone_black.png')" : "url('img/iphone_white.png')"
 			})
-			$('iframe').css({
-				"width": "720px",
-    		"height": "1280px"
+			togglePhone = !togglePhone
+			break;
+		// Hitting the H key toggles the hand on and off
+		case 104:
+			$('#hand').css({
+				"background-image": toggleHand ? "none" : "url('img/hand.png')"
 			})
-			centerAndResizeViewer()
-		} else {
-			isiPhone = !isiPhone
-			$('#viewer').css({
-				"background-image": "url('img/iphone_white.png')"
-			})
-			$('iframe').css({
-				"width": "640px",
-    		"height": "1136px"
-			})
-			centerAndResizeViewer()
-		}
+			toggleHand = !toggleHand
+			break;
+		// Hitting the B key cycles through various backgrounds
+		case 98:
+			if (currentBackground == backgrounds.length-1) {
+				currentBackground = 0
+				setBackground(currentBackground)
+			} else {
+				currentBackground += 1
+				setBackground(currentBackground)
+			}
+			break;
+		// Hitting the Z key zooms the viewer to 100% scale
+		case 122:
+			toggleZoom = !toggleZoom
+			prototypeViewer()
+			break;
+		// Hitting the D key swaps iPhone for Android device
+		case 100:
+			if (isiPhone) {
+				isiPhone = !isiPhone
+				$('#viewer').css({
+					"background-image": "url('img/nexus.png')"
+				})
+				$('iframe').css({
+					"width": "720px",
+	    		"height": "1280px"
+				})
+				prototypeViewer()
+			} else {
+				isiPhone = !isiPhone
+				$('#viewer').css({
+					"background-image": "url('img/iphone_white.png')"
+				})
+				$('iframe').css({
+					"width": "640px",
+	    		"height": "1136px"
+				})
+				prototypeViewer()
+			}
+			break;
 	}
 });
 
-// Kick things off
-$(document).ready(centerAndResizeViewer)
-$(window).resize( function() {
-	if (!toggleZoom) {
-		centerAndResizeViewer()
-	} else {
-		zoomToScale()
-	}
-})
-
-
+// Kick things off and update on resize
+$(document).ready(prototypeViewer)
+$(window).resize(prototypeViewer)
