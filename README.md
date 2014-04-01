@@ -5,7 +5,7 @@ A simple web viewer for Framer.JS prototypes. Replace the iframe src in **index.
 
 Example: https://s3-us-west-2.amazonaws.com/tweakapp.co/Framewebview/index.html
 
-![FramerWebView Example](https://s3-us-west-2.amazonaws.com/tweakapp.co/Framewebview/framerwebview.png)
+![FramerWebView Example](http://tweakapp.co.s3.amazonaws.com/Framewebview/framerwebview.png)
 
 Features
 --------
