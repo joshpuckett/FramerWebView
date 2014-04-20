@@ -27,11 +27,11 @@ function prototypeViewer() {
 	}
 
 	//Private object vars
-	positionLeft = isiPhone ? 75 : 35;
-	positionTop = isiPhone ? 247 : 164;
-	deviceMultiple = isiPhone ? 1.3 : 1.375;
-	deviceLeftMultiple = isiPhone ? 1.352 : 1.433;
-	deviceTopMultiple = isiPhone ? 1.27 : 1.33;
+	var positionLeft = isiPhone ? 75 : 35;
+	var positionTop = isiPhone ? 247 : 164;
+	var deviceMultiple = isiPhone ? 1.3 : 1.375;
+	var deviceLeftMultiple = isiPhone ? 1.352 : 1.433;
+	var deviceTopMultiple = isiPhone ? 1.27 : 1.33;
 
 	//Set up viewer
 	$('#viewer').css({
