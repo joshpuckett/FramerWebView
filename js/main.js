@@ -1,12 +1,14 @@
 // Copyright 2014, Josh Puckett
 
+$(function() {
+
 // Set up vars
 var defaults = {
 	phoneColor: "white",		// "white" or "black"
 	hand: true,
 	zoom: false,
 	isRetina: (window.devicePixelRatio > 1),
-	isiPhone: true,
+	device: "iphone",				// "iphone" or "android"
 	background: 0,
 	url: "https://s3-us-west-2.amazonaws.com/tweakapp.co/Framewebview/lightbox/index.html"
 };
@@ -67,11 +69,12 @@ function prototypeViewer() {
 	}
 
 	//Private object vars
-	var positionLeft = options.isiPhone ? 75 : 35;
-	var positionTop = options.isiPhone ? 247 : 164;
-	var deviceMultiple = options.isiPhone ? 1.3 : 1.375;
-	var deviceLeftMultiple = options.isiPhone ? 1.352 : 1.433;
-	var deviceTopMultiple = options.isiPhone ? 1.27 : 1.33;
+	var isiPhone = (options.device == "iphone");
+	var positionLeft = isiPhone ? 75 : 35;
+	var positionTop = isiPhone ? 247 : 164;
+	var deviceMultiple = isiPhone ? 1.3 : 1.375;
+	var deviceLeftMultiple = isiPhone ? 1.352 : 1.433;
+	var deviceTopMultiple = isiPhone ? 1.27 : 1.33;
 
 	//Set up viewer
 	$('#viewer').css({
@@ -129,9 +132,12 @@ var setPhoneColor = function(phoneColor){
 		"black": "url('img/iphone_black.png')"
 	};
 
-	$('#viewer').css({
-		"background-image": phoneColors[options.phoneColor] || phoneColors["white"]
-	});
+	if (options.device == "iphone"){
+		$('#viewer').css({
+			"background-image": phoneColors[options.phoneColor] || phoneColors["white"]
+		});
+	}
+
 };
 
 var setHand = function(hand){
@@ -145,6 +151,30 @@ var setURL = function(url){
 	options.url = (url != undefined) ? url : options.url;
 	$('.prototypeinput').val(options.url);
 	$("#frame").attr("src", options.url);
+}
+
+var setDevice = function(device){
+	options.device = (device != undefined) ? device : options.device;
+
+	if (options.device == "iphone"){
+		$('#iphone').addClass("iphoneactive").removeClass("iphone");
+		setPhoneColor();
+		$('iframe').css({ "width": "640px", "height": "1136px" });
+	}else{
+		$('#iphone').addClass("iphone").removeClass("iphoneactive");
+	}
+
+	if (options.device == "android"){
+		$('#android').addClass("androidactive").removeClass("android");
+		$('#viewer').css({
+			"background-image": "url('img/nexus.png')"
+		});
+		$('iframe').css({ "width": "720px", "height": "1280px" });
+	}else{
+		$('#android').addClass("android").removeClass("androidactive");
+	}
+
+	prototypeViewer();
 }
 
 // Keypress listeners.
@@ -186,32 +216,16 @@ function search(ele) {
   }
 }
 
+
+// Needs to be called once on initialize
+setDevice();
+
 $("#iphone, #android").click(function(){
-if (options.isiPhone) {
-	options.isiPhone = !options.isiPhone;
-	$('#iphone').addClass("iphone").removeClass("iphoneactive");
-	$('#android').addClass("androidactive").removeClass("android");
-	$('#viewer').css({
-		"background-image": "url('img/nexus.png')"
-	});
-	$('iframe').css({
-		"width": "720px",
-		"height": "1280px"
-	});
-	prototypeViewer();
-} else {
-	options.isiPhone = !options.isiPhone;
-	$('#iphone').addClass("iphoneactive").removeClass("iphone");
-	$('#android').addClass("android").removeClass("androidactive");
-	$('#viewer').css({
-		"background-image": "url('img/iphone_white.png')"
-	});
-	$('iframe').css({
-		"width": "640px",
-		"height": "1136px"
-	});
-	prototypeViewer();
-}
+	if (options.device == "iphone"){
+		setDevice("android");
+	}else{
+		setDevice("iphone");
+	}
 });
 
 
@@ -220,4 +234,7 @@ $("#controls").mouseenter(function(){
 });
 $("#controls").mouseleave(function(){
   $("#controls").animate({opacity:'0.1'}, 'slow');
+});
+
+
 });
