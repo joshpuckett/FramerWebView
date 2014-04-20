@@ -96,6 +96,7 @@ function prototypeViewer() {
 
 	//Set up hand
 	$('#hand').css({
+		'background-image': "url('img/hand.png')",
 		'height': ((1833 * deviceMultiple) * viewerScale) * 0.7793,
 		'width': (1833 * deviceMultiple) * viewerScale,
 		'position': 'absolute',
@@ -142,8 +143,9 @@ var setPhoneColor = function(phoneColor){
 
 var setHand = function(hand){
 	options.hand = (hand != undefined) ? hand : options.hand;
+
 	$('#hand').css({
-		"background-image": !options.hand ? "none" : "url('img/hand.png')"
+		"opacity": !options.hand ? 0 : 1
 	});
 };
 
