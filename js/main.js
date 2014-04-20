@@ -226,6 +226,7 @@ $("#iphone, #android").click(function(){
 	}else{
 		setDevice("iphone");
 	}
+	updateAddressBar();
 });
 
 
